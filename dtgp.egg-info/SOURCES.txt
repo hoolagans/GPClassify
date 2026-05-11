@@ -1,9 +1,0 @@
-README.md
-pyproject.toml
-dtgp/__init__.py
-dtgp/sklearn.py
-dtgp.egg-info/PKG-INFO
-dtgp.egg-info/SOURCES.txt
-dtgp.egg-info/dependency_links.txt
-dtgp.egg-info/top_level.txt
-tests/test_sklearn_dtgp.py

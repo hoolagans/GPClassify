@@ -69,7 +69,7 @@ class RenderableModelList(list):
         return self.__str__()
 
 
-class DTGPClassifier:
+class GPClassifier:
     """Decision Tree Genetic Programming classifier with sklearn-style API."""
 
     def __init__(
@@ -117,15 +117,15 @@ class DTGPClassifier:
             "show_training_curve": self.show_training_curve,
         }
 
-    def set_params(self, **params: Any) -> "DTGPClassifier":
+    def set_params(self, **params: Any) -> "GPClassifier":
         for key, value in params.items():
             if not hasattr(self, key):
-                raise ValueError(f"Invalid parameter '{key}' for DTGPClassifier")
+                raise ValueError(f"Invalid parameter '{key}' for GPClassifier")
             setattr(self, key, value)
         return self
 
     # --- fit/predict API ---
-    def fit(self, X: Sequence[Sequence[float]], y: Sequence[Any]) -> "DTGPClassifier":
+    def fit(self, X: Sequence[Sequence[float]], y: Sequence[Any]) -> "GPClassifier":
         self._validate_selection_method()
         self._validate_fitness_method()
         X2 = _to_2d(X)
@@ -137,7 +137,7 @@ class DTGPClassifier:
 
         classes = sorted(set(y_list))
         if len(classes) < 2:
-            raise ValueError("DTGPClassifier requires at least two classes")
+            raise ValueError("GPClassifier requires at least two classes")
 
         self.classes_ = classes
         self.n_features_in_ = len(X2[0])
@@ -816,19 +816,19 @@ class DTGPClassifier:
     def _require_fitted(self):
         required = ["classes_", "n_features_in_"]
         if not all(hasattr(self, name) for name in required):
-            raise ValueError("This DTGPClassifier instance is not fitted yet. Call 'fit' first.")
+            raise ValueError("This GPClassifier instance is not fitted yet. Call 'fit' first.")
         if getattr(self, "multiclass_strategy_", None) == "one_vs_rest":
             if not hasattr(self, "classifiers_"):
-                raise ValueError("This DTGPClassifier instance is not fitted yet. Call 'fit' first.")
+                raise ValueError("This GPClassifier instance is not fitted yet. Call 'fit' first.")
         else:
             binary_required = ["best_tree_", "invert_output_"]
             if not all(hasattr(self, name) for name in binary_required):
-                raise ValueError("This DTGPClassifier instance is not fitted yet. Call 'fit' first.")
+                raise ValueError("This GPClassifier instance is not fitted yet. Call 'fit' first.")
 
 
 def _train_binary_worker(task):
     class_label, X, y_bool, params = task
-    model = DTGPClassifier(**params)
+    model = GPClassifier(**params)
     fitted = model._fit_binary_problem(X, y_bool, curve_label=f"class={class_label}")
     return class_label, fitted
 

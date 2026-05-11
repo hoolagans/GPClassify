@@ -1,3 +1,25 @@
+Metadata-Version: 2.4
+Name: gpclassify
+Version: 0.1.0
+Summary: Decision Tree Genetic Programming classifier with a scikit-learn-style API.
+License: MIT
+Project-URL: Homepage, https://github.com/hoolagans/GPClassify
+Project-URL: Repository, https://github.com/hoolagans/GPClassify
+Project-URL: Issues, https://github.com/hoolagans/GPClassify/issues
+Keywords: genetic programming,classification,machine learning,decision tree,evolutionary computation
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
 # GPClassify
 
 Decision Tree Genetic Programming classifier with a scikit-learn-style API.
