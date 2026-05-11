@@ -1,5 +1,5 @@
-"""Python DTGP package."""
+"""Python GPClassify package."""
 
-from .sklearn import DTGPClassifier
+from .sklearn import GPClassifier
 
-__all__ = ["DTGPClassifier"]
+__all__ = ["GPClassifier"]
