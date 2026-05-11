@@ -2,10 +2,10 @@ import unittest
 from contextlib import redirect_stderr
 from io import StringIO
 
-from dtgp import DTGPClassifier
+from gpclassify import GPClassifier
 
 
-class TestDTGPClassifier(unittest.TestCase):
+class TestGPClassifier(unittest.TestCase):
     def test_fit_predict_score(self):
         X = [
             [4.0, 1.0],
@@ -19,7 +19,7 @@ class TestDTGPClassifier(unittest.TestCase):
         ]
         y = [1 if row[0] > row[1] else 0 for row in X]
 
-        clf = DTGPClassifier(
+        clf = GPClassifier(
             num_models=40,
             generations=40,
             crossover_rate=0.5,
@@ -42,8 +42,8 @@ class TestDTGPClassifier(unittest.TestCase):
         X = [[4.0, 1.0], [1.0, 4.0], [5.0, 2.0], [2.0, 5.0], [3.0, 1.0], [1.0, 3.0]]
         y = [1 if row[0] > row[1] else 0 for row in X]
 
-        clf1 = DTGPClassifier(random_state=7, num_models=25, generations=25)
-        clf2 = DTGPClassifier(random_state=7, num_models=25, generations=25)
+        clf1 = GPClassifier(random_state=7, num_models=25, generations=25)
+        clf2 = GPClassifier(random_state=7, num_models=25, generations=25)
 
         clf1.fit(X, y)
         clf2.fit(X, y)
@@ -58,7 +58,7 @@ class TestDTGPClassifier(unittest.TestCase):
                 self.assertAlmostEqual(value1, value2, places=12)
 
     def test_get_set_params(self):
-        clf = DTGPClassifier(num_models=10, generations=20, random_state=3)
+        clf = GPClassifier(num_models=10, generations=20, random_state=3)
         params = clf.get_params()
         self.assertEqual(params["num_models"], 10)
         self.assertEqual(params["generations"], 20)
@@ -84,7 +84,7 @@ class TestDTGPClassifier(unittest.TestCase):
         X = [[4.0, 1.0], [1.0, 4.0], [5.0, 2.0], [2.0, 5.0], [3.0, 1.0], [1.0, 3.0]]
         y = [1 if row[0] > row[1] else 0 for row in X]
 
-        clf = DTGPClassifier(random_state=11, num_models=20, generations=20)
+        clf = GPClassifier(random_state=11, num_models=20, generations=20)
         clf.fit(X, y)
 
         one = clf.view_model()
@@ -100,7 +100,7 @@ class TestDTGPClassifier(unittest.TestCase):
         X = [[4.0, 1.0], [1.0, 4.0], [5.0, 2.0], [2.0, 5.0], [3.0, 1.0], [1.0, 3.0]]
         y = [1 if row[0] > row[1] else 0 for row in X]
 
-        clf = DTGPClassifier(random_state=13, num_models=20, generations=20)
+        clf = GPClassifier(random_state=13, num_models=20, generations=20)
         clf.fit(X, y)
 
         tree_text = clf.view_model_tree()
@@ -117,7 +117,7 @@ class TestDTGPClassifier(unittest.TestCase):
         X = [[4.0, 1.0], [1.0, 4.0], [5.0, 2.0], [2.0, 5.0], [3.0, 1.0], [1.0, 3.0]]
         y = [1 if row[0] > row[1] else 0 for row in X]
 
-        clf = DTGPClassifier(random_state=17, num_models=10, generations=5, show_training_curve=True)
+        clf = GPClassifier(random_state=17, num_models=10, generations=5, show_training_curve=True)
         stderr = StringIO()
         with redirect_stderr(stderr):
             clf.fit(X, y)
@@ -142,7 +142,7 @@ class TestDTGPClassifier(unittest.TestCase):
         ]
         y = [0, 0, 1, 1, 2, 2, 0, 1, 2]
 
-        clf = DTGPClassifier(random_state=19, num_models=16, generations=16)
+        clf = GPClassifier(random_state=19, num_models=16, generations=16)
         clf.fit(X, y)
 
         self.assertEqual(clf.multiclass_strategy_, "one_vs_rest")
@@ -164,7 +164,7 @@ class TestDTGPClassifier(unittest.TestCase):
         ]
         y = [0, 1, 2, 0, 1, 2]
 
-        clf = DTGPClassifier(random_state=23, num_models=12, generations=12)
+        clf = GPClassifier(random_state=23, num_models=12, generations=12)
         clf.fit(X, y)
         proba = clf.predict_proba(X)
 
@@ -186,7 +186,7 @@ class TestDTGPClassifier(unittest.TestCase):
         ]
         y = [0, 0, 1, 1, 2, 2, 0, 1, 2]
 
-        clf = DTGPClassifier(random_state=27, num_models=12, generations=12)
+        clf = GPClassifier(random_state=27, num_models=12, generations=12)
         clf.fit(X, y)
 
         one = clf.view_model()
@@ -216,7 +216,7 @@ class TestDTGPClassifier(unittest.TestCase):
         ]
         y = [0, 0, 1, 1, 2, 2, 0, 1, 2]
 
-        clf = DTGPClassifier(random_state=29, num_models=12, generations=12)
+        clf = GPClassifier(random_state=29, num_models=12, generations=12)
         clf.fit(X, y)
 
         one = clf.view_model_tree()
@@ -235,7 +235,7 @@ class TestDTGPClassifier(unittest.TestCase):
     def test_view_model_tree_multi_model_rendering(self):
         X = [[1.0, 0.0], [0.0, 1.0], [2.0, 0.0], [0.0, 2.0]]
         y = [1, 0, 1, 0]
-        clf = DTGPClassifier(random_state=41, num_models=8, generations=4)
+        clf = GPClassifier(random_state=41, num_models=8, generations=4)
         clf.fit(X, y)
 
         trees = clf.view_model_tree(2)
@@ -249,7 +249,7 @@ class TestDTGPClassifier(unittest.TestCase):
     def test_view_model_multi_model_rendering(self):
         X = [[1.0, 0.0], [0.0, 1.0], [2.0, 0.0], [0.0, 2.0]]
         y = [1, 0, 1, 0]
-        clf = DTGPClassifier(random_state=43, num_models=8, generations=4)
+        clf = GPClassifier(random_state=43, num_models=8, generations=4)
         clf.fit(X, y)
 
         models = clf.view_model(2)
@@ -276,7 +276,7 @@ class TestDTGPClassifier(unittest.TestCase):
             ("math2", "add", ("var", 0), ("const", 1.0)),
             ("math1", "abs", ("math2", "sub", ("var", 1), ("const", 2.0))),
         )
-        clf = DTGPClassifier(
+        clf = GPClassifier(
             num_models=1,
             generations=0,
             crossover_rate=0.0,
@@ -299,14 +299,14 @@ class TestDTGPClassifier(unittest.TestCase):
     def test_invalid_selection_method_raises(self):
         X = [[1.0, 0.0], [0.0, 1.0], [2.0, 0.0], [0.0, 2.0]]
         y = [1, 0, 1, 0]
-        clf = DTGPClassifier(selection_method="not_supported", random_state=31, num_models=6, generations=2)
+        clf = GPClassifier(selection_method="not_supported", random_state=31, num_models=6, generations=2)
         with self.assertRaises(ValueError):
             clf.fit(X, y)
 
     def test_invalid_fitness_method_raises(self):
         X = [[1.0, 0.0], [0.0, 1.0], [2.0, 0.0], [0.0, 2.0]]
         y = [1, 0, 1, 0]
-        clf = DTGPClassifier(fitness_method="not_supported", random_state=33, num_models=6, generations=2)
+        clf = GPClassifier(fitness_method="not_supported", random_state=33, num_models=6, generations=2)
         with self.assertRaises(ValueError):
             clf.fit(X, y)
 
@@ -318,7 +318,7 @@ class TestDTGPClassifier(unittest.TestCase):
         m2 = ("inter", "gt", ("var", 0), ("const", 2.0))
         m3 = ("node", "and", m1, m2)
         models = [m1, m2, m3]
-        clf = DTGPClassifier(
+        clf = GPClassifier(
             tournament_size=3,
             selection_method="pareto_tournament",
             random_state=37,
@@ -345,7 +345,7 @@ class TestDTGPClassifier(unittest.TestCase):
         X = [[4.0, 1.0], [1.0, 4.0], [5.0, 2.0], [2.0, 5.0], [3.0, 1.0], [1.0, 3.0]]
         y = [1 if row[0] > row[1] else 0 for row in X]
 
-        clf = DTGPClassifier(
+        clf = GPClassifier(
             random_state=41,
             num_models=18,
             generations=18,
@@ -359,7 +359,7 @@ class TestDTGPClassifier(unittest.TestCase):
         X = [[4.0, 1.0], [1.0, 4.0], [5.0, 2.0], [2.0, 5.0], [3.0, 1.0], [1.0, 3.0]]
         y = [1 if row[0] > row[1] else 0 for row in X]
 
-        clf = DTGPClassifier(
+        clf = GPClassifier(
             random_state=43,
             num_models=18,
             generations=18,
@@ -379,7 +379,7 @@ class TestDTGPClassifier(unittest.TestCase):
         m2 = ("inter", "gt", ("var", 0), ("const", 2.0))
         m3 = ("node", "and", m1, m2)
         models = [m1, m2, m3]
-        clf = DTGPClassifier(
+        clf = GPClassifier(
             tournament_size=3,
             selection_method="pareto_tournament",
             random_state=47,
