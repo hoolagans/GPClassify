@@ -114,3 +114,7 @@ Set `fitness_method` to choose the optimization target used by evolutionary scor
 
 - `"accuracy"`: maximize classification agreement (with inversion symmetry)
 - `"pearson_r2"`: maximize squared Pearson correlation between predictions and labels
+
+## Citation
+
+Haut, Nathan. Active Learning in Genetic Programming. Michigan State University, 2023.
