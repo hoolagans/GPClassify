@@ -93,7 +93,7 @@ This allows regression-like value expressions at the bottom of boolean trees.
 - `max_depth`: maximum tree depth
 - `tournament_size`: tournament selection size
 - `selection_method`: parent selection strategy (`"tournament"` or `"pareto_tournament"`)
-- `fitness_method`: fitness objective (`"accuracy"` or `"pearson_r2"`)
+- `fitness_method`: fitness objective (`"accuracy"`, `"f1_score"`, or `"pearson_r2"`)
 - `random_state`: reproducibility seed
 - `show_training_curve`: print generation-by-generation best fitness
 
@@ -110,7 +110,7 @@ that front.
 
 ### Fitness methods
 
-Set `fitness_method` to choose the optimization target used by evolutionary scoring:
+Set `fitness_method` to choose the optimization target used by evolutionary scoring (default: `"f1_score"`):
 
 - `"accuracy"`: maximize classification agreement (with inversion symmetry)
 - `"f1_score"`: maximize F1 score (with inversion symmetry)
