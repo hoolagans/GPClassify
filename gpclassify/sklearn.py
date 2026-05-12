@@ -83,7 +83,7 @@ class GPClassifier:
         max_depth: int = 6,
         tournament_size: int = 5,
         selection_method: str = "pareto_tournament",
-        fitness_method: str = "pearson_r2",
+        fitness_method: str = "f1_score",
         random_state: int | None = None,
         initial_population: list | None = None,
         show_training_curve: bool = False,
