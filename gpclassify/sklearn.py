@@ -476,8 +476,8 @@ class GPClassifier:
         self._rng = random.Random(self.random_state)
         models, history = self._evolve(X, y_bool, curve_label=curve_label)
         best_tree = models[0]
-        _, raw_fit = self._predict_and_score(best_tree, X, y_bool)
-        invert_output = raw_fit < 0.5
+        preds, _ = self._predict_and_score(best_tree, X, y_bool)
+        invert_output = self._should_invert_output(preds, y_bool)
         best_fitness = self._fitness(best_tree, X, y_bool)
         return {
             "best_tree": best_tree,
@@ -544,19 +544,36 @@ class GPClassifier:
             key = id(tree)
             if key in cache:
                 return cache[key]
-        preds, raw = self._predict_and_score(tree, X, y_bool)
-        if self.fitness_method == "accuracy":
-            score = max(raw, 1.0 - raw)
-        elif self.fitness_method == "f1_score":
-            score = self._f1_score(preds, y_bool)
-        else:
-            score = self._pearson_r_squared(preds, y_bool)
+        preds, _ = self._predict_and_score(tree, X, y_bool)
+        score = self._best_oriented_fitness(preds, y_bool)
         if cache is not None:
             cache[key] = score
         return score
 
-    def _f1_score(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> float:
-        tp = fp = fn = tp_inv = fp_inv = fn_inv = 0
+    def _should_invert_output(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> bool:
+        direct = self._fitness_from_predictions(preds, y_bool)
+        inverted = self._fitness_from_predictions([not p for p in preds], y_bool)
+        if inverted > direct + 1e-12:
+            return True
+        if direct > inverted + 1e-12:
+            return False
+        direct_accuracy = sum(a == b for a, b in zip(preds, y_bool)) / len(y_bool)
+        return (1.0 - direct_accuracy) > direct_accuracy
+
+    def _best_oriented_fitness(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> float:
+        direct = self._fitness_from_predictions(preds, y_bool)
+        inverted = self._fitness_from_predictions([not p for p in preds], y_bool)
+        return max(direct, inverted)
+
+    def _fitness_from_predictions(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> float:
+        if self.fitness_method == "accuracy":
+            return sum(a == b for a, b in zip(preds, y_bool)) / len(y_bool)
+        if self.fitness_method == "f1_score":
+            return self._f1_score_binary(preds, y_bool)
+        return self._pearson_r_squared(preds, y_bool)
+
+    def _f1_score_binary(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> float:
+        tp = fp = fn = 0
         for p, t in zip(preds, y_bool):
             if p and t:
                 tp += 1
@@ -564,18 +581,8 @@ class GPClassifier:
                 fp += 1
             elif not p and t:
                 fn += 1
-            # inverted predictions (not p)
-            if not p and t:
-                tp_inv += 1
-            elif not p and not t:
-                fp_inv += 1
-            elif p and t:
-                fn_inv += 1
         denom = 2 * tp + fp + fn
-        denom_inv = 2 * tp_inv + fp_inv + fn_inv
-        f1 = (2 * tp / denom) if denom > 0 else 0.0
-        f1_inv = (2 * tp_inv / denom_inv) if denom_inv > 0 else 0.0
-        return max(f1, f1_inv)
+        return (2 * tp / denom) if denom > 0 else 0.0
 
     def _pearson_r_squared(self, x: Sequence[bool], y: Sequence[bool]) -> float:
         x_float = [1.0 if v else 0.0 for v in x]

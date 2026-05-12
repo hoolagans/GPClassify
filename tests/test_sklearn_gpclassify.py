@@ -387,6 +387,46 @@ class TestGPClassifier(unittest.TestCase):
         self.assertGreaterEqual(clf.best_fitness_, 0.0)
         self.assertLessEqual(clf.best_fitness_, 1.0)
 
+    def test_f1_invert_output_is_based_on_fitness_not_accuracy(self):
+        X = [[0.0], [1.0], [2.0], [3.0], [4.0], [5.0], [6.0], [7.0], [8.0], [9.0]]
+        y = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        always_true = ("inter", "eq", ("const", 1.0), ("const", 1.0))
+
+        clf = GPClassifier(
+            fitness_method="f1_score",
+            random_state=59,
+            num_models=1,
+            generations=0,
+            crossover_rate=0.0,
+            mutation_rate=0.0,
+            elitist_rate=1.0,
+            initial_population=[always_true],
+        )
+        clf.fit(X, y)
+
+        self.assertFalse(clf.invert_output_)
+        self.assertEqual(clf.predict(X), [1] * len(y))
+
+    def test_accuracy_invert_output_still_inverts_when_accuracy_is_better(self):
+        X = [[0.0], [1.0], [2.0], [3.0], [4.0], [5.0], [6.0], [7.0], [8.0], [9.0]]
+        y = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        always_true = ("inter", "eq", ("const", 1.0), ("const", 1.0))
+
+        clf = GPClassifier(
+            fitness_method="accuracy",
+            random_state=61,
+            num_models=1,
+            generations=0,
+            crossover_rate=0.0,
+            mutation_rate=0.0,
+            elitist_rate=1.0,
+            initial_population=[always_true],
+        )
+        clf.fit(X, y)
+
+        self.assertTrue(clf.invert_output_)
+        self.assertEqual(clf.predict(X), [0] * len(y))
+
     def test_pareto_elite_layers_preserves_full_first_front(self):
         X = [[3.0, 1.0], [2.0, 2.5], [1.0, 2.0], [4.0, 0.5], [0.5, 3.0], [3.5, 2.0]]
         y_bool = [row[0] > row[1] for row in X]
