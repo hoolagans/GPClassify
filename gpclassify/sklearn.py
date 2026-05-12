@@ -15,6 +15,7 @@ from typing import Any, Iterable, List, Sequence, Tuple
 MIN_FALLBACK_SCORE = 1e-12
 DIV_EPSILON = 1e-12
 DIV_FALLBACK = 0.0
+FITNESS_TIE_EPSILON = 1e-12
 
 # Module-level op-dispatch tables — built once instead of on every call.
 _INTER_OPS = {
@@ -553,10 +554,9 @@ class GPClassifier:
     def _should_invert_output(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> bool:
         direct = self._fitness_from_predictions(preds, y_bool)
         inverted = self._fitness_from_predictions([not p for p in preds], y_bool)
-        # Treat near-equal floating-point scores as ties, then break ties by accuracy.
-        if inverted > direct + 1e-12:
+        if inverted > direct + FITNESS_TIE_EPSILON:
             return True
-        if direct > inverted + 1e-12:
+        if direct > inverted + FITNESS_TIE_EPSILON:
             return False
         direct_accuracy = sum(a == b for a, b in zip(preds, y_bool)) / len(y_bool)
         return direct_accuracy < 0.5
