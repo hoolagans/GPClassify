@@ -113,6 +113,7 @@ that front.
 Set `fitness_method` to choose the optimization target used by evolutionary scoring:
 
 - `"accuracy"`: maximize classification agreement (with inversion symmetry)
+- `"f1_score"`: maximize F1 score (with inversion symmetry)
 - `"pearson_r2"`: maximize squared Pearson correlation between predictions and labels
 
 ## Citation

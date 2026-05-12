@@ -547,11 +547,35 @@ class GPClassifier:
         preds, raw = self._predict_and_score(tree, X, y_bool)
         if self.fitness_method == "accuracy":
             score = max(raw, 1.0 - raw)
+        elif self.fitness_method == "f1_score":
+            score = self._f1_score(preds, y_bool)
         else:
             score = self._pearson_r_squared(preds, y_bool)
         if cache is not None:
             cache[key] = score
         return score
+
+    def _f1_score(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> float:
+        tp = fp = fn = tp_inv = fp_inv = fn_inv = 0
+        for p, t in zip(preds, y_bool):
+            if p and t:
+                tp += 1
+            elif p and not t:
+                fp += 1
+            elif not p and t:
+                fn += 1
+            # inverted predictions (not p)
+            if not p and t:
+                tp_inv += 1
+            elif not p and not t:
+                fp_inv += 1
+            elif p and t:
+                fn_inv += 1
+        denom = 2 * tp + fp + fn
+        denom_inv = 2 * tp_inv + fp_inv + fn_inv
+        f1 = (2 * tp / denom) if denom > 0 else 0.0
+        f1_inv = (2 * tp_inv / denom_inv) if denom_inv > 0 else 0.0
+        return max(f1, f1_inv)
 
     def _pearson_r_squared(self, x: Sequence[bool], y: Sequence[bool]) -> float:
         x_float = [1.0 if v else 0.0 for v in x]
@@ -579,7 +603,7 @@ class GPClassifier:
             raise ValueError(f"selection_method must be one of: {valid_list}")
 
     def _validate_fitness_method(self) -> None:
-        valid = {"accuracy", "pearson_r2"}
+        valid = {"accuracy", "f1_score", "pearson_r2"}
         if self.fitness_method not in valid:
             valid_list = ", ".join(sorted(valid))
             raise ValueError(f"fitness_method must be one of: {valid_list}")
