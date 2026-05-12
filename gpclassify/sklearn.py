@@ -559,7 +559,7 @@ class GPClassifier:
         if direct > inverted + 1e-12:
             return False
         direct_accuracy = sum(a == b for a, b in zip(preds, y_bool)) / len(y_bool)
-        return (1.0 - direct_accuracy) > direct_accuracy
+        return direct_accuracy < 0.5
 
     def _best_oriented_fitness(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> float:
         direct = self._fitness_from_predictions(preds, y_bool)
