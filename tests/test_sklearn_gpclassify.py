@@ -371,6 +371,22 @@ class TestGPClassifier(unittest.TestCase):
         self.assertGreaterEqual(clf.best_fitness_, 0.0)
         self.assertLessEqual(clf.best_fitness_, 1.0)
 
+    def test_fit_with_f1_score_fitness_method(self):
+        X = [[4.0, 1.0], [1.0, 4.0], [5.0, 2.0], [2.0, 5.0], [3.0, 1.0], [1.0, 3.0]]
+        y = [1 if row[0] > row[1] else 0 for row in X]
+
+        clf = GPClassifier(
+            random_state=53,
+            num_models=18,
+            generations=18,
+            fitness_method="f1_score",
+        )
+        clf.fit(X, y)
+        pred = clf.predict(X)
+        self.assertEqual(len(pred), len(y))
+        self.assertGreaterEqual(clf.best_fitness_, 0.0)
+        self.assertLessEqual(clf.best_fitness_, 1.0)
+
     def test_pareto_elite_layers_preserves_full_first_front(self):
         X = [[3.0, 1.0], [2.0, 2.5], [1.0, 2.0], [4.0, 0.5], [0.5, 3.0], [3.5, 2.0]]
         y_bool = [row[0] > row[1] for row in X]
