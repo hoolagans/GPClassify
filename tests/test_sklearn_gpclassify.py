@@ -406,6 +406,7 @@ class TestGPClassifier(unittest.TestCase):
 
         self.assertFalse(clf.invert_output_)
         self.assertEqual(clf.predict(X), [1] * len(y))
+        self.assertAlmostEqual(clf.best_fitness_, 2.0 / 11.0, places=12)
 
     def test_accuracy_invert_output_still_inverts_when_accuracy_is_better(self):
         X = [[0.0], [1.0], [2.0], [3.0], [4.0], [5.0], [6.0], [7.0], [8.0], [9.0]]
@@ -426,6 +427,7 @@ class TestGPClassifier(unittest.TestCase):
 
         self.assertTrue(clf.invert_output_)
         self.assertEqual(clf.predict(X), [0] * len(y))
+        self.assertAlmostEqual(clf.best_fitness_, 0.9, places=12)
 
     def test_pareto_elite_layers_preserves_full_first_front(self):
         X = [[3.0, 1.0], [2.0, 2.5], [1.0, 2.0], [4.0, 0.5], [0.5, 3.0], [3.5, 2.0]]

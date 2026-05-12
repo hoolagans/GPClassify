@@ -553,6 +553,7 @@ class GPClassifier:
     def _should_invert_output(self, preds: Sequence[bool], y_bool: Sequence[bool]) -> bool:
         direct = self._fitness_from_predictions(preds, y_bool)
         inverted = self._fitness_from_predictions([not p for p in preds], y_bool)
+        # Treat near-equal floating-point scores as ties, then break ties by accuracy.
         if inverted > direct + 1e-12:
             return True
         if direct > inverted + 1e-12:
