@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gpclassify"
-version = "0.1.1"
+version = "0.1.2"
 description = "Decision Tree Genetic Programming classifier with a scikit-learn-style API."
 readme = "README.md"
 license = { text = "MIT" }
