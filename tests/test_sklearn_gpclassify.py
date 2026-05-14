@@ -6,7 +6,7 @@ from gpclassify import GPClassifier
 from gpclassify.sklearn import RenderableModelText
 
 
-class _FakePretty:
+class _MockPrettyPrinter:
     def __init__(self):
         self.parts = []
 
@@ -233,13 +233,13 @@ class TestGPClassifier(unittest.TestCase):
         model = clf.view_model()
         self.assertIsInstance(model, RenderableModelText)
 
-        pretty = _FakePretty()
+        pretty = _MockPrettyPrinter()
         model._repr_pretty_(pretty, False)
         rendered = "".join(pretty.parts)
         self.assertIn("\n", rendered)
         self.assertNotIn("\\n", rendered)
 
-        cycle_pretty = _FakePretty()
+        cycle_pretty = _MockPrettyPrinter()
         model._repr_pretty_(cycle_pretty, True)
         self.assertEqual("".join(cycle_pretty.parts), "...")
 
@@ -309,14 +309,14 @@ class TestGPClassifier(unittest.TestCase):
 
         models = clf.view_model(2)
 
-        pretty = _FakePretty()
+        pretty = _MockPrettyPrinter()
         models._repr_pretty_(pretty, False)
         rendered = "".join(pretty.parts)
         self.assertIn("\n", rendered)
         self.assertIn("\n\n", rendered)
         self.assertNotIn("\\n", rendered)
 
-        cycle_pretty = _FakePretty()
+        cycle_pretty = _MockPrettyPrinter()
         models._repr_pretty_(cycle_pretty, True)
         self.assertEqual("".join(cycle_pretty.parts), "...")
 
@@ -331,13 +331,13 @@ class TestGPClassifier(unittest.TestCase):
         self.assertIn("\n", tree)
         self.assertNotIn("\\n", repr(tree))
 
-        pretty = _FakePretty()
+        pretty = _MockPrettyPrinter()
         tree._repr_pretty_(pretty, False)
         rendered = "".join(pretty.parts)
         self.assertIn("\n", rendered)
         self.assertNotIn("\\n", rendered)
 
-        cycle_pretty = _FakePretty()
+        cycle_pretty = _MockPrettyPrinter()
         tree._repr_pretty_(cycle_pretty, True)
         self.assertEqual("".join(cycle_pretty.parts), "...")
 
