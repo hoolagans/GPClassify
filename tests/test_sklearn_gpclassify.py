@@ -199,7 +199,9 @@ class TestGPClassifier(unittest.TestCase):
         clf.fit(X, y)
 
         one = clf.view_model()
-        self.assertIsInstance(one, str)
+        self.assertIsInstance(one, RenderableModelText)
+        self.assertIn("\n", one)
+        self.assertNotIn("\\n", repr(one))
         for class_label in clf.classes_:
             self.assertIn(f"[Class {class_label} | Model 1]", one)
 

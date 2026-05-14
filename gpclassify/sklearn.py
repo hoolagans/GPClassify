@@ -281,7 +281,7 @@ class GPClassifier:
                     expr = f"NOT ({expr})"
                 rendered.append(f"[Class {class_label} | Model {i + 1}] {expr}")
         if n_models == 1:
-            return "\n".join(rendered)
+            return RenderableModelText("\n".join(rendered))
         return RenderableModelList(rendered)
 
     def _view_model_tree_multiclass(self, n_models: int) -> str | List[str]:
