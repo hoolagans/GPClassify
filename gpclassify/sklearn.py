@@ -69,6 +69,12 @@ class RenderableModelList(list):
     def __repr__(self) -> str:
         return self.__str__()
 
+    def _repr_pretty_(self, pretty, cycle) -> None:
+        if cycle:
+            pretty.text("...")
+            return
+        pretty.text(self.__str__())
+
 
 class GPClassifier:
     """Decision Tree Genetic Programming classifier with sklearn-style API."""
