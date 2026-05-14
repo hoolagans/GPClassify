@@ -76,6 +76,19 @@ class RenderableModelList(list):
         pretty.text(self.__str__())
 
 
+class RenderableModelText(str):
+    """String with multiline-friendly repr for model inspection output."""
+
+    def __repr__(self) -> str:
+        return str(self)
+
+    def _repr_pretty_(self, pretty, is_cycle) -> None:
+        if is_cycle:
+            pretty.text("...")
+            return
+        pretty.text(str(self))
+
+
 class GPClassifier:
     """Decision Tree Genetic Programming classifier with sklearn-style API."""
 
@@ -233,7 +246,7 @@ class GPClassifier:
             if i == 0 and self.invert_output_:
                 expr = f"NOT ({expr})"
             rendered.append(expr)
-        return rendered[0] if n_models == 1 else RenderableModelList(rendered)
+        return RenderableModelText(rendered[0]) if n_models == 1 else RenderableModelList(rendered)
 
     def view_model_tree(self, n_models: int = 1) -> str | List[str]:
         """Return tree-plot-like representation(s) of evolved model(s)."""
@@ -286,7 +299,7 @@ class GPClassifier:
                     lines.extend(self._tree_plot_lines(model, ""))
                 rendered.append("\n".join(lines))
         if n_models == 1:
-            return "\n\n".join(rendered)
+            return RenderableModelText("\n\n".join(rendered))
         return RenderableModelList(rendered)
 
     # --- GP internals ---

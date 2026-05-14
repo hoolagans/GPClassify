@@ -286,6 +286,34 @@ class TestGPClassifier(unittest.TestCase):
         models._repr_pretty_(cycle_pretty, True)
         self.assertEqual("".join(cycle_pretty.parts), "...")
 
+    def test_view_model_tree_single_model_repr_pretty_multiline(self):
+        X = [[1.0, 0.0], [0.0, 1.0], [2.0, 0.0], [0.0, 2.0]]
+        y = [1, 0, 1, 0]
+        clf = GPClassifier(random_state=71, num_models=8, generations=4)
+        clf.fit(X, y)
+
+        tree = clf.view_model_tree()
+        self.assertIsInstance(tree, str)
+        self.assertIn("\n", tree)
+        self.assertNotIn("\\n", repr(tree))
+
+        class FakePretty:
+            def __init__(self):
+                self.parts = []
+
+            def text(self, value):
+                self.parts.append(value)
+
+        pretty = FakePretty()
+        tree._repr_pretty_(pretty, False)
+        rendered = "".join(pretty.parts)
+        self.assertIn("\n", rendered)
+        self.assertNotIn("\\n", rendered)
+
+        cycle_pretty = FakePretty()
+        tree._repr_pretty_(cycle_pretty, True)
+        self.assertEqual("".join(cycle_pretty.parts), "...")
+
     def test_seeded_tree_with_nested_math_operations(self):
         X = [
             [1.0, 1.0],
