@@ -3,6 +3,7 @@ from contextlib import redirect_stderr
 from io import StringIO
 
 from gpclassify import GPClassifier
+from gpclassify.sklearn import RenderableModelText
 
 
 class _FakePretty:
@@ -295,6 +296,7 @@ class TestGPClassifier(unittest.TestCase):
 
         tree = clf.view_model_tree()
         self.assertIsInstance(tree, str)
+        self.assertIsInstance(tree, RenderableModelText)
         self.assertIn("\n", tree)
         self.assertNotIn("\\n", repr(tree))
 

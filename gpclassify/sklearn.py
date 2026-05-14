@@ -80,7 +80,7 @@ class RenderableModelText(str):
     """String with multiline-friendly repr for model inspection output."""
 
     def __repr__(self) -> str:
-        return self
+        return str(self)
 
     def _repr_pretty_(self, pretty, is_cycle) -> None:
         if is_cycle:
