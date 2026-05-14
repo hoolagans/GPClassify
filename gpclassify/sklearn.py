@@ -80,7 +80,7 @@ class RenderableModelText(str):
     """String with multiline-friendly repr for model inspection output."""
 
     def __repr__(self) -> str:
-        return str(self)
+        return self
 
     def _repr_pretty_(self, pretty, is_cycle) -> None:
         if is_cycle:
@@ -267,7 +267,7 @@ class GPClassifier:
             else:
                 lines.extend(self._tree_plot_lines(model, ""))
             rendered.append("\n".join(lines))
-        return rendered[0] if n_models == 1 else RenderableModelList(rendered)
+        return RenderableModelText(rendered[0]) if n_models == 1 else RenderableModelList(rendered)
 
     def _view_model_multiclass(self, n_models: int) -> str | List[str]:
         rendered: List[str] = []

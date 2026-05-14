@@ -5,6 +5,14 @@ from io import StringIO
 from gpclassify import GPClassifier
 
 
+class _FakePretty:
+    def __init__(self):
+        self.parts = []
+
+    def text(self, value):
+        self.parts.append(value)
+
+
 class TestGPClassifier(unittest.TestCase):
     def test_fit_predict_score(self):
         X = [
@@ -268,21 +276,14 @@ class TestGPClassifier(unittest.TestCase):
 
         models = clf.view_model(2)
 
-        class FakePretty:
-            def __init__(self):
-                self.parts = []
-
-            def text(self, value):
-                self.parts.append(value)
-
-        pretty = FakePretty()
+        pretty = _FakePretty()
         models._repr_pretty_(pretty, False)
         rendered = "".join(pretty.parts)
         self.assertIn("\n", rendered)
         self.assertIn("\n\n", rendered)
         self.assertNotIn("\\n", rendered)
 
-        cycle_pretty = FakePretty()
+        cycle_pretty = _FakePretty()
         models._repr_pretty_(cycle_pretty, True)
         self.assertEqual("".join(cycle_pretty.parts), "...")
 
@@ -297,20 +298,13 @@ class TestGPClassifier(unittest.TestCase):
         self.assertIn("\n", tree)
         self.assertNotIn("\\n", repr(tree))
 
-        class FakePretty:
-            def __init__(self):
-                self.parts = []
-
-            def text(self, value):
-                self.parts.append(value)
-
-        pretty = FakePretty()
+        pretty = _FakePretty()
         tree._repr_pretty_(pretty, False)
         rendered = "".join(pretty.parts)
         self.assertIn("\n", rendered)
         self.assertNotIn("\\n", rendered)
 
-        cycle_pretty = FakePretty()
+        cycle_pretty = _FakePretty()
         tree._repr_pretty_(cycle_pretty, True)
         self.assertEqual("".join(cycle_pretty.parts), "...")
 
