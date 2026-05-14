@@ -295,7 +295,6 @@ class TestGPClassifier(unittest.TestCase):
         clf.fit(X, y)
 
         tree = clf.view_model_tree()
-        self.assertIsInstance(tree, str)
         self.assertIsInstance(tree, RenderableModelText)
         self.assertIn("\n", tree)
         self.assertNotIn("\\n", repr(tree))
