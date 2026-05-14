@@ -3,6 +3,15 @@ from contextlib import redirect_stderr
 from io import StringIO
 
 from gpclassify import GPClassifier
+from gpclassify.sklearn import RenderableModelText
+
+
+class _MockPrettyPrinter:
+    def __init__(self):
+        self.parts = []
+
+    def text(self, value):
+        self.parts.append(value)
 
 
 class TestGPClassifier(unittest.TestCase):
@@ -190,7 +199,10 @@ class TestGPClassifier(unittest.TestCase):
         clf.fit(X, y)
 
         one = clf.view_model()
-        self.assertIsInstance(one, str)
+        self.assertIsInstance(one, RenderableModelText)
+        self.assertIn("\n", one)
+        self.assertIn("\n", repr(one))
+        self.assertNotIn("\\n", repr(one))
         for class_label in clf.classes_:
             self.assertIn(f"[Class {class_label} | Model 1]", one)
 
@@ -201,6 +213,35 @@ class TestGPClassifier(unittest.TestCase):
             self.assertTrue(any(f"[Class {class_label} | Model 1]" in expr for expr in many))
             self.assertTrue(any(f"[Class {class_label} | Model 2]" in expr for expr in many))
             self.assertEqual(sum(1 for expr in many if f"[Class {class_label} | Model " in expr), 2)
+
+    def test_multiclass_view_model_single_repr_pretty_multiline(self):
+        X = [
+            [9.0, 1.0, 1.0],
+            [8.0, 2.0, 1.0],
+            [1.0, 9.0, 1.0],
+            [2.0, 8.0, 1.0],
+            [1.0, 1.0, 9.0],
+            [1.0, 2.0, 8.0],
+            [7.0, 2.0, 1.0],
+            [2.0, 7.0, 1.0],
+            [1.0, 2.0, 7.0],
+        ]
+        y = [0, 0, 1, 1, 2, 2, 0, 1, 2]
+
+        clf = GPClassifier(random_state=31, num_models=12, generations=12)
+        clf.fit(X, y)
+        model = clf.view_model()
+        self.assertIsInstance(model, RenderableModelText)
+
+        pretty = _MockPrettyPrinter()
+        model._repr_pretty_(pretty, False)
+        rendered = "".join(pretty.parts)
+        self.assertIn("\n", rendered)
+        self.assertNotIn("\\n", rendered)
+
+        cycle_pretty = _MockPrettyPrinter()
+        model._repr_pretty_(cycle_pretty, True)
+        self.assertEqual("".join(cycle_pretty.parts), "...")
 
     def test_multiclass_view_model_tree_includes_each_class(self):
         X = [
@@ -259,6 +300,46 @@ class TestGPClassifier(unittest.TestCase):
         self.assertIn("\n", rendered)
         self.assertIn("\n\n", rendered)
         self.assertNotIn("\\n", rendered)
+
+    def test_view_model_multi_model_repr_pretty_multiline(self):
+        X = [[1.0, 0.0], [0.0, 1.0], [2.0, 0.0], [0.0, 2.0]]
+        y = [1, 0, 1, 0]
+        clf = GPClassifier(random_state=67, num_models=8, generations=4)
+        clf.fit(X, y)
+
+        models = clf.view_model(2)
+
+        pretty = _MockPrettyPrinter()
+        models._repr_pretty_(pretty, False)
+        rendered = "".join(pretty.parts)
+        self.assertIn("\n", rendered)
+        self.assertIn("\n\n", rendered)
+        self.assertNotIn("\\n", rendered)
+
+        cycle_pretty = _MockPrettyPrinter()
+        models._repr_pretty_(cycle_pretty, True)
+        self.assertEqual("".join(cycle_pretty.parts), "...")
+
+    def test_view_model_tree_single_model_repr_pretty_multiline(self):
+        X = [[1.0, 0.0], [0.0, 1.0], [2.0, 0.0], [0.0, 2.0]]
+        y = [1, 0, 1, 0]
+        clf = GPClassifier(random_state=71, num_models=8, generations=4)
+        clf.fit(X, y)
+
+        tree = clf.view_model_tree()
+        self.assertIsInstance(tree, RenderableModelText)
+        self.assertIn("\n", tree)
+        self.assertNotIn("\\n", repr(tree))
+
+        pretty = _MockPrettyPrinter()
+        tree._repr_pretty_(pretty, False)
+        rendered = "".join(pretty.parts)
+        self.assertIn("\n", rendered)
+        self.assertNotIn("\\n", rendered)
+
+        cycle_pretty = _MockPrettyPrinter()
+        tree._repr_pretty_(cycle_pretty, True)
+        self.assertEqual("".join(cycle_pretty.parts), "...")
 
     def test_seeded_tree_with_nested_math_operations(self):
         X = [

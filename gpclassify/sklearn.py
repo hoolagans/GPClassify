@@ -69,6 +69,25 @@ class RenderableModelList(list):
     def __repr__(self) -> str:
         return self.__str__()
 
+    def _repr_pretty_(self, pretty, is_cycle) -> None:
+        if is_cycle:
+            pretty.text("...")
+            return
+        pretty.text(self.__str__())
+
+
+class RenderableModelText(str):
+    """String subclass that preserves real newlines in IPython/Jupyter displays."""
+
+    def __repr__(self) -> str:
+        return str(self)
+
+    def _repr_pretty_(self, pretty, is_cycle) -> None:
+        if is_cycle:
+            pretty.text("...")
+            return
+        pretty.text(self)
+
 
 class GPClassifier:
     """Decision Tree Genetic Programming classifier with sklearn-style API."""
@@ -227,7 +246,7 @@ class GPClassifier:
             if i == 0 and self.invert_output_:
                 expr = f"NOT ({expr})"
             rendered.append(expr)
-        return rendered[0] if n_models == 1 else RenderableModelList(rendered)
+        return RenderableModelText(rendered[0]) if n_models == 1 else RenderableModelList(rendered)
 
     def view_model_tree(self, n_models: int = 1) -> str | List[str]:
         """Return tree-plot-like representation(s) of evolved model(s)."""
@@ -248,7 +267,7 @@ class GPClassifier:
             else:
                 lines.extend(self._tree_plot_lines(model, ""))
             rendered.append("\n".join(lines))
-        return rendered[0] if n_models == 1 else RenderableModelList(rendered)
+        return RenderableModelText(rendered[0]) if n_models == 1 else RenderableModelList(rendered)
 
     def _view_model_multiclass(self, n_models: int) -> str | List[str]:
         rendered: List[str] = []
@@ -262,7 +281,7 @@ class GPClassifier:
                     expr = f"NOT ({expr})"
                 rendered.append(f"[Class {class_label} | Model {i + 1}] {expr}")
         if n_models == 1:
-            return "\n".join(rendered)
+            return RenderableModelText("\n".join(rendered))
         return RenderableModelList(rendered)
 
     def _view_model_tree_multiclass(self, n_models: int) -> str | List[str]:
@@ -280,7 +299,7 @@ class GPClassifier:
                     lines.extend(self._tree_plot_lines(model, ""))
                 rendered.append("\n".join(lines))
         if n_models == 1:
-            return "\n\n".join(rendered)
+            return RenderableModelText("\n\n".join(rendered))
         return RenderableModelList(rendered)
 
     # --- GP internals ---
