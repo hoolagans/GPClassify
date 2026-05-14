@@ -276,14 +276,14 @@ class TestGPClassifier(unittest.TestCase):
                 self.parts.append(value)
 
         pretty = FakePretty()
-        models._repr_pretty_(pretty, cycle=False)
+        models._repr_pretty_(pretty, False)
         rendered = "".join(pretty.parts)
         self.assertIn("\n", rendered)
         self.assertIn("\n\n", rendered)
         self.assertNotIn("\\n", rendered)
 
         cycle_pretty = FakePretty()
-        models._repr_pretty_(cycle_pretty, cycle=True)
+        models._repr_pretty_(cycle_pretty, True)
         self.assertEqual("".join(cycle_pretty.parts), "...")
 
     def test_seeded_tree_with_nested_math_operations(self):

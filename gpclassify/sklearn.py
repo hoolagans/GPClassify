@@ -69,8 +69,8 @@ class RenderableModelList(list):
     def __repr__(self) -> str:
         return self.__str__()
 
-    def _repr_pretty_(self, pretty, cycle) -> None:
-        if cycle:
+    def _repr_pretty_(self, pretty, is_cycle) -> None:
+        if is_cycle:
             pretty.text("...")
             return
         pretty.text(self.__str__())
