@@ -213,6 +213,35 @@ class TestGPClassifier(unittest.TestCase):
             self.assertTrue(any(f"[Class {class_label} | Model 2]" in expr for expr in many))
             self.assertEqual(sum(1 for expr in many if f"[Class {class_label} | Model " in expr), 2)
 
+    def test_multiclass_view_model_single_repr_pretty_multiline(self):
+        X = [
+            [9.0, 1.0, 1.0],
+            [8.0, 2.0, 1.0],
+            [1.0, 9.0, 1.0],
+            [2.0, 8.0, 1.0],
+            [1.0, 1.0, 9.0],
+            [1.0, 2.0, 8.0],
+            [7.0, 2.0, 1.0],
+            [2.0, 7.0, 1.0],
+            [1.0, 2.0, 7.0],
+        ]
+        y = [0, 0, 1, 1, 2, 2, 0, 1, 2]
+
+        clf = GPClassifier(random_state=31, num_models=12, generations=12)
+        clf.fit(X, y)
+        model = clf.view_model()
+        self.assertIsInstance(model, RenderableModelText)
+
+        pretty = _FakePretty()
+        model._repr_pretty_(pretty, False)
+        rendered = "".join(pretty.parts)
+        self.assertIn("\n", rendered)
+        self.assertNotIn("\\n", rendered)
+
+        cycle_pretty = _FakePretty()
+        model._repr_pretty_(cycle_pretty, True)
+        self.assertEqual("".join(cycle_pretty.parts), "...")
+
     def test_multiclass_view_model_tree_includes_each_class(self):
         X = [
             [9.0, 1.0, 1.0],
