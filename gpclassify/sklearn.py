@@ -86,7 +86,7 @@ class RenderableModelText(str):
         if is_cycle:
             pretty.text("...")
             return
-        pretty.text(str(self))
+        pretty.text(self)
 
 
 class GPClassifier:
