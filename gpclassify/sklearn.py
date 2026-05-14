@@ -77,7 +77,7 @@ class RenderableModelList(list):
 
 
 class RenderableModelText(str):
-    """String with multiline-friendly repr/pretty display for model output."""
+    """String that keeps multiline model output readable in repr/pretty displays."""
 
     def __repr__(self) -> str:
         return str(self)
