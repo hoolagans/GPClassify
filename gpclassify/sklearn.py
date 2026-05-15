@@ -112,7 +112,7 @@ class GPClassifier:
         self.crossover_rate = crossover_rate
         self.mutation_rate = mutation_rate
         self.elitist_rate = elitist_rate
-        self.max_depth = max_depth
+        self.max_depth = max(3, max_depth)
         self.tournament_size = tournament_size
         self.selection_method = selection_method
         self.fitness_method = fitness_method

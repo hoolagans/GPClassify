@@ -550,5 +550,14 @@ class TestGPClassifier(unittest.TestCase):
         self.assertEqual(set(elites_tight), set(expected_front))
 
 
+    def test_max_depth_minimum_enforced(self):
+        for supplied in [1, 2, 3]:
+            clf = GPClassifier(max_depth=supplied)
+            self.assertEqual(clf.max_depth, 3)
+
+        clf = GPClassifier(max_depth=5)
+        self.assertEqual(clf.max_depth, 5)
+
+
 if __name__ == "__main__":
     unittest.main()
