@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrapper">
+        <h1 style="margin-bottom:0.25rem;"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+        <p style="margin-top:0;">For Python developers and researchers evaluating interpretable GP classifiers.</p>
+        <p>
+          <a href="https://pypi.org/project/gpclassify/"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/gpclassify" /></a>
+          <a href="https://github.com/hoolagans/GPClassify">Repository</a> ·
+          <a href="https://github.com/hoolagans/GPClassify/issues">Issues</a> ·
+          <a href="https://pypi.org/project/gpclassify/">PyPI</a>
+        </p>
+        <nav>
+          <a href="{{ '/' | relative_url }}">Home</a> |
+          <a href="{{ '/getting-started.html' | relative_url }}">Getting Started</a> |
+          <a href="{{ '/multiclass-guide.html' | relative_url }}">Multiclass</a> |
+          <a href="{{ '/api-reference.html' | relative_url }}">API</a> |
+          <a href="{{ '/model-inspection.html' | relative_url }}">Model Inspection</a> |
+          <a href="{{ '/fitness-selection.html' | relative_url }}">Fitness & Selection</a> |
+          <a href="{{ '/examples.html' | relative_url }}">Examples</a> |
+          <a href="{{ '/links.html' | relative_url }}">Links</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">{{ content }}</div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrapper">
+        <p>
+          <strong>{{ site.title }}</strong> ·
+          <a href="https://github.com/hoolagans/GPClassify">Source</a> ·
+          <a href="https://pypi.org/project/gpclassify/">Install</a> ·
+          <a href="https://github.com/hoolagans/GPClassify/releases">Releases</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

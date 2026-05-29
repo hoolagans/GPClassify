@@ -1,0 +1,7 @@
+title: GPClassify
+description: Decision Tree Genetic Programming classifier with a scikit-learn-style API.
+baseurl: "/GPClassify"
+url: "https://hoolagans.github.io"
+theme: minima
+markdown: kramdown
+show_downloads: false

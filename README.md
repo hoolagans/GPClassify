@@ -116,6 +116,10 @@ Set `fitness_method` to choose the optimization target used by evolutionary scor
 - `"f1_score"`: maximize F1 score (with inversion symmetry)
 - `"pearson_r2"`: maximize squared Pearson correlation between predictions and labels
 
+## Documentation
+
+A GitHub Pages site is provided under `/docs` with guides for Getting Started, multiclass usage, API reference, model inspection, fitness/selection behavior, examples, and contributor links.
+
 ## Citation
 
 Haut, Nathan. Active Learning in Genetic Programming. Michigan State University, 2023.
