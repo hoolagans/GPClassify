@@ -4,4 +4,3 @@ baseurl: "/GPClassify"
 url: "https://hoolagans.github.io"
 theme: minima
 markdown: kramdown
-show_downloads: false
