@@ -107,7 +107,7 @@ class TestGPClassifier(unittest.TestCase):
 
     def test_eval_value_rejects_disabled_trig_operations(self):
         clf = GPClassifier(enable_trig_functions=False)
-        with self.assertRaises(ValueError):
+        with self.assertRaisesRegex(ValueError, "trigonometric functions are disabled"):
             clf._eval_value(("math1", "sin", ("const", 1.0)), [0.0])
 
     def test_view_model_interpretable_format(self):

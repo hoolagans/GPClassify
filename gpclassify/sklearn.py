@@ -418,7 +418,14 @@ class GPClassifier:
             inner = self._eval_value(child, data)
             unary_ops = self._math_unary_ops()
             if op not in unary_ops:
-                raise ValueError(f"Unsupported unary operator '{op}' for current GPClassifier configuration")
+                if op in _TRIG_UNARY_OPS and not self.enable_trig_functions:
+                    message = (
+                        f"Unary operator '{op}' is unavailable because trigonometric functions are disabled "
+                        "in the current configuration."
+                    )
+                else:
+                    message = f"Unsupported unary operator '{op}' for current GPClassifier configuration."
+                raise ValueError(message)
             return self._sanitize_value(unary_ops[op](inner))
         _, op, left, right = value_node
         a = self._eval_value(left, data)
