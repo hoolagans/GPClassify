@@ -72,7 +72,7 @@ class TestGPClassifier(unittest.TestCase):
         self.assertEqual(params["num_models"], 10)
         self.assertEqual(params["generations"], 20)
         self.assertEqual(params["selection_method"], "pareto_tournament")
-        self.assertEqual(params["fitness_method"], "f1_score")
+        self.assertEqual(params["fitness_method"], "pearson_r2")
         self.assertTrue(params["enable_trig_functions"])
         self.assertFalse(params["show_training_curve"])
 

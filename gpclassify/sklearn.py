@@ -105,7 +105,7 @@ class GPClassifier:
         max_depth: int = 6,
         tournament_size: int = 5,
         selection_method: str = "pareto_tournament",
-        fitness_method: str = "f1_score",
+        fitness_method: str = "pearson_r2",
         enable_trig_functions: bool = True,
         random_state: int | None = None,
         initial_population: list | None = None,
