@@ -111,7 +111,7 @@ that front.
 
 ### Fitness methods
 
-Set `fitness_method` to choose the optimization target used by evolutionary scoring (default: `"f1_score"`):
+Set `fitness_method` to choose the optimization target used by evolutionary scoring (default: `"pearson_r2"`):
 
 - `"accuracy"`: maximize classification agreement (with inversion symmetry)
 - `"f1_score"`: maximize F1 score (with inversion symmetry)
