@@ -208,6 +208,10 @@ def run_experiments(output_dir: Path) -> None:
     summary = _build_summary(runs)
     with (output_dir / "summary_by_dataset.json").open("w", encoding="utf-8") as fh:
         json.dump(summary, fh, indent=2, sort_keys=True)
+    _write_rows_csv(output_dir / "dataset_summary.csv", summary["dataset_summary"])
+    _write_rows_csv(
+        output_dir / "overlap_per_class_summary.csv", _build_overlap_per_class_summary(per_class_rows)
+    )
 
     _make_metric_boxplot(runs, "accuracy", figures_dir / "boxplot_accuracy_by_method.png")
     _make_metric_boxplot(runs, "macro_f1", figures_dir / "boxplot_macro_f1_by_method.png")
@@ -294,7 +298,7 @@ def _make_metric_boxplot(runs: List[Dict[str, object]], metric: str, out_path: P
         labels.append(method)
 
     plt.figure(figsize=(8, 5))
-    plt.boxplot(values, labels=labels, showmeans=True)
+    plt.boxplot(values, tick_labels=labels, showmeans=True)
     plt.title(f"Distribution of {metric} by fitness method")
     plt.ylabel(metric)
     plt.grid(axis="y", alpha=0.3)
@@ -323,12 +327,41 @@ def _make_overlap_dataset_boxplot(runs: List[Dict[str, object]], out_path: Path)
             ]
             plot_values.append(values)
             labels.append(method)
-        ax.boxplot(plot_values, labels=labels, showmeans=True)
+        ax.boxplot(plot_values, tick_labels=labels, showmeans=True)
         ax.set_title(f"Overlap datasets: {title}")
         ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
     fig.savefig(out_path, dpi=180)
     plt.close(fig)
+
+
+def _build_overlap_per_class_summary(per_class_rows: List[Dict[str, object]]) -> List[Dict[str, object]]:
+    overlap_datasets = {
+        "syn_bin_imbalanced_high_overlap",
+        "syn_3c_imbalanced_high_overlap",
+        "syn_bin_imbalanced_complete_overlap",
+        "syn_4c_imbalanced_complete_overlap",
+    }
+    grouped: Dict[Tuple[str, str, int], List[float]] = defaultdict(list)
+    for row in per_class_rows:
+        dataset = str(row["dataset"])
+        if dataset not in overlap_datasets:
+            continue
+        key = (dataset, str(row["fitness_method"]), int(row["class_label"]))
+        grouped[key].append(float(row["per_class_accuracy"]))
+
+    out_rows = []
+    for (dataset, method, class_label), vals in sorted(grouped.items()):
+        out_rows.append(
+            {
+                "dataset": dataset,
+                "fitness_method": method,
+                "class_label": class_label,
+                "per_class_accuracy_mean": float(np.mean(vals)),
+                "per_class_accuracy_std": float(np.std(vals)),
+            }
+        )
+    return out_rows
 
 
 if __name__ == "__main__":

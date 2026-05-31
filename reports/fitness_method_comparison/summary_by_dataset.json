@@ -1,0 +1,428 @@
+{
+  "dataset_summary": [
+    {
+      "accuracy_mean": 0.8377192982456141,
+      "accuracy_std": 0.058168030011923264,
+      "dataset": "real_breast_cancer_bin",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.8197340588198618,
+      "macro_f1_std": 0.07088994921454606,
+      "mean_per_class_accuracy_mean": 0.8208783586448598,
+      "mean_per_class_accuracy_std": 0.06917561711274123
+    },
+    {
+      "accuracy_mean": 0.8355263157894737,
+      "accuracy_std": 0.04180749771294972,
+      "dataset": "real_breast_cancer_bin",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.8146303508574401,
+      "macro_f1_std": 0.061451520968572926,
+      "mean_per_class_accuracy_mean": 0.8159864193925233,
+      "mean_per_class_accuracy_std": 0.066005114594186
+    },
+    {
+      "accuracy_mean": 0.8508771929824561,
+      "accuracy_std": 0.057223350265441314,
+      "dataset": "real_breast_cancer_bin",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.8309873139350548,
+      "macro_f1_std": 0.0735747705023838,
+      "mean_per_class_accuracy_mean": 0.8235433703271028,
+      "mean_per_class_accuracy_std": 0.0710746633678261
+    },
+    {
+      "accuracy_mean": 0.2175925925925926,
+      "accuracy_std": 0.035908739684565406,
+      "dataset": "real_digits_10c",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.1693297138080378,
+      "macro_f1_std": 0.029481082269000237,
+      "mean_per_class_accuracy_mean": 0.2178169546211999,
+      "mean_per_class_accuracy_std": 0.036014977779234875
+    },
+    {
+      "accuracy_mean": 0.5016203703703703,
+      "accuracy_std": 0.0358422744611158,
+      "dataset": "real_digits_10c",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.4655398661579846,
+      "macro_f1_std": 0.047378267284113235,
+      "mean_per_class_accuracy_mean": 0.5017244225027244,
+      "mean_per_class_accuracy_std": 0.035721480541470806
+    },
+    {
+      "accuracy_mean": 0.494212962962963,
+      "accuracy_std": 0.03593782616002766,
+      "dataset": "real_digits_10c",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.4460020797509279,
+      "macro_f1_std": 0.047084821929104244,
+      "mean_per_class_accuracy_mean": 0.4941788714430223,
+      "mean_per_class_accuracy_std": 0.036110471374413415
+    },
+    {
+      "accuracy_mean": 0.8138888888888889,
+      "accuracy_std": 0.12168442285449729,
+      "dataset": "real_iris_3c",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.7919951754847425,
+      "macro_f1_std": 0.1512780080812454,
+      "mean_per_class_accuracy_mean": 0.8138888888888889,
+      "mean_per_class_accuracy_std": 0.12168442285449724
+    },
+    {
+      "accuracy_mean": 0.9249999999999999,
+      "accuracy_std": 0.049612697498588224,
+      "dataset": "real_iris_3c",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.92384836254738,
+      "macro_f1_std": 0.0511205918638739,
+      "mean_per_class_accuracy_mean": 0.925,
+      "mean_per_class_accuracy_std": 0.04961269749858819
+    },
+    {
+      "accuracy_mean": 0.9305555555555556,
+      "accuracy_std": 0.03413390479845699,
+      "dataset": "real_iris_3c",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.9292928479223437,
+      "macro_f1_std": 0.035164487124998124,
+      "mean_per_class_accuracy_mean": 0.9305555555555555,
+      "mean_per_class_accuracy_std": 0.03413390479845698
+    },
+    {
+      "accuracy_mean": 0.6875,
+      "accuracy_std": 0.08998051724804079,
+      "dataset": "real_wine_3c",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.6672926514753865,
+      "macro_f1_std": 0.1058985907086239,
+      "mean_per_class_accuracy_mean": 0.7187830687830687,
+      "mean_per_class_accuracy_std": 0.07816285196237238
+    },
+    {
+      "accuracy_mean": 0.7569444444444444,
+      "accuracy_std": 0.10452612874884848,
+      "dataset": "real_wine_3c",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.7491279895979437,
+      "macro_f1_std": 0.1123902916039264,
+      "mean_per_class_accuracy_mean": 0.7706349206349207,
+      "mean_per_class_accuracy_std": 0.09173182670769259
+    },
+    {
+      "accuracy_mean": 0.7407407407407407,
+      "accuracy_std": 0.07112171988767227,
+      "dataset": "real_wine_3c",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.7294453026612522,
+      "macro_f1_std": 0.08911332781544681,
+      "mean_per_class_accuracy_mean": 0.7667328042328042,
+      "mean_per_class_accuracy_std": 0.06064749903006669
+    },
+    {
+      "accuracy_mean": 0.6127777777777779,
+      "accuracy_std": 0.04340094440572282,
+      "dataset": "syn_3c_balanced",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.6006757040839479,
+      "macro_f1_std": 0.0466418644738816,
+      "mean_per_class_accuracy_mean": 0.6127342312931715,
+      "mean_per_class_accuracy_std": 0.04485565690679316
+    },
+    {
+      "accuracy_mean": 0.6277777777777778,
+      "accuracy_std": 0.0383454087260831,
+      "dataset": "syn_3c_balanced",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.6055519376017302,
+      "macro_f1_std": 0.05250151367641483,
+      "mean_per_class_accuracy_mean": 0.6260161978646117,
+      "mean_per_class_accuracy_std": 0.03922589688387181
+    },
+    {
+      "accuracy_mean": 0.6238888888888889,
+      "accuracy_std": 0.043938087754880215,
+      "dataset": "syn_3c_balanced",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.5941357614826748,
+      "macro_f1_std": 0.06279966207994171,
+      "mean_per_class_accuracy_mean": 0.6230344356452864,
+      "mean_per_class_accuracy_std": 0.044890407409929944
+    },
+    {
+      "accuracy_mean": 0.7605555555555555,
+      "accuracy_std": 0.04130210887510305,
+      "dataset": "syn_3c_imbalanced",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.5745509681430634,
+      "macro_f1_std": 0.02945494813595706,
+      "mean_per_class_accuracy_mean": 0.5862536289496839,
+      "mean_per_class_accuracy_std": 0.028999747581140267
+    },
+    {
+      "accuracy_mean": 0.76,
+      "accuracy_std": 0.04586614986788954,
+      "dataset": "syn_3c_imbalanced",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.4885736228581158,
+      "macro_f1_std": 0.11417952857224724,
+      "mean_per_class_accuracy_mean": 0.4878904015316312,
+      "mean_per_class_accuracy_std": 0.08602853308396587
+    },
+    {
+      "accuracy_mean": 0.7722222222222221,
+      "accuracy_std": 0.040658165474515534,
+      "dataset": "syn_3c_imbalanced",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.5688416504052665,
+      "macro_f1_std": 0.0609551505752565,
+      "mean_per_class_accuracy_mean": 0.5784591430207795,
+      "mean_per_class_accuracy_std": 0.06468956755269793
+    },
+    {
+      "accuracy_mean": 0.6489583333333333,
+      "accuracy_std": 0.024540039561228636,
+      "dataset": "syn_3c_imbalanced_high_overlap",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.32058117017310095,
+      "macro_f1_std": 0.06321014207137828,
+      "mean_per_class_accuracy_mean": 0.35872418929256544,
+      "mean_per_class_accuracy_std": 0.0435448239908605
+    },
+    {
+      "accuracy_mean": 0.6723958333333333,
+      "accuracy_std": 0.0074934867551761436,
+      "dataset": "syn_3c_imbalanced_high_overlap",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.2920387100653994,
+      "macro_f1_std": 0.04152816030886796,
+      "mean_per_class_accuracy_mean": 0.3464204195198347,
+      "mean_per_class_accuracy_std": 0.022719526226906653
+    },
+    {
+      "accuracy_mean": 0.5916666666666667,
+      "accuracy_std": 0.1003682455870492,
+      "dataset": "syn_3c_imbalanced_high_overlap",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.38358664993311287,
+      "macro_f1_std": 0.040386087907525944,
+      "mean_per_class_accuracy_mean": 0.41857899822568156,
+      "mean_per_class_accuracy_std": 0.036679454386835356
+    },
+    {
+      "accuracy_mean": 0.7078703703703704,
+      "accuracy_std": 0.016296033247035224,
+      "dataset": "syn_4c_imbalanced_complete_overlap",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.21315246316864542,
+      "macro_f1_std": 0.015284147664098505,
+      "mean_per_class_accuracy_mean": 0.2540686374795417,
+      "mean_per_class_accuracy_std": 0.012341716305221597
+    },
+    {
+      "accuracy_mean": 0.7106481481481481,
+      "accuracy_std": 0.01531980750719843,
+      "dataset": "syn_4c_imbalanced_complete_overlap",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.20768981283927704,
+      "macro_f1_std": 0.002603219339259724,
+      "mean_per_class_accuracy_mean": 0.25,
+      "mean_per_class_accuracy_std": 0.0
+    },
+    {
+      "accuracy_mean": 0.36851851851851847,
+      "accuracy_std": 0.162066134953498,
+      "dataset": "syn_4c_imbalanced_complete_overlap",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.20255223197010974,
+      "macro_f1_std": 0.03049751704476295,
+      "mean_per_class_accuracy_mean": 0.2547943594456412,
+      "mean_per_class_accuracy_std": 0.0305158073936953
+    },
+    {
+      "accuracy_mean": 0.5020833333333333,
+      "accuracy_std": 0.06465587324013532,
+      "dataset": "syn_5c_imbalanced",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.24315484456109038,
+      "macro_f1_std": 0.06462818343574711,
+      "mean_per_class_accuracy_mean": 0.3102049879539697,
+      "mean_per_class_accuracy_std": 0.04225580218790475
+    },
+    {
+      "accuracy_mean": 0.6320833333333333,
+      "accuracy_std": 0.027179317095500716,
+      "dataset": "syn_5c_imbalanced",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.34797980822255636,
+      "macro_f1_std": 0.03962714988828099,
+      "mean_per_class_accuracy_mean": 0.3419459611276357,
+      "mean_per_class_accuracy_std": 0.03452529371585271
+    },
+    {
+      "accuracy_mean": 0.625,
+      "accuracy_std": 0.040892813821284325,
+      "dataset": "syn_5c_imbalanced",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.39410817263654724,
+      "macro_f1_std": 0.07697594455324458,
+      "mean_per_class_accuracy_mean": 0.41642668766740837,
+      "mean_per_class_accuracy_std": 0.07149499820965635
+    },
+    {
+      "accuracy_mean": 0.7854166666666667,
+      "accuracy_std": 0.03937567361759676,
+      "dataset": "syn_bin_balanced",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.7830782079634011,
+      "macro_f1_std": 0.0402897473014373,
+      "mean_per_class_accuracy_mean": 0.785846023955147,
+      "mean_per_class_accuracy_std": 0.0392039984179711
+    },
+    {
+      "accuracy_mean": 0.7604166666666667,
+      "accuracy_std": 0.07946762967816938,
+      "dataset": "syn_bin_balanced",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.7530964092234993,
+      "macro_f1_std": 0.08552350971162416,
+      "mean_per_class_accuracy_mean": 0.7595028265307943,
+      "mean_per_class_accuracy_std": 0.08021369981920204
+    },
+    {
+      "accuracy_mean": 0.7979166666666666,
+      "accuracy_std": 0.049138998806484695,
+      "dataset": "syn_bin_balanced",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.7975874992645074,
+      "macro_f1_std": 0.049116744635352774,
+      "mean_per_class_accuracy_mean": 0.797956219267895,
+      "mean_per_class_accuracy_std": 0.04918935621047972
+    },
+    {
+      "accuracy_mean": 0.8861111111111111,
+      "accuracy_std": 0.0055555555555555775,
+      "dataset": "syn_bin_imbalanced",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.46980394702660555,
+      "macro_f1_std": 0.001559989878599326,
+      "mean_per_class_accuracy_mean": 0.4992162932389937,
+      "mean_per_class_accuracy_std": 0.0013574288211318736
+    },
+    {
+      "accuracy_mean": 0.8451388888888889,
+      "accuracy_std": 0.04207554016583643,
+      "dataset": "syn_bin_imbalanced",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.6594279267031677,
+      "macro_f1_std": 0.045786872222292094,
+      "mean_per_class_accuracy_mean": 0.6895387060568259,
+      "mean_per_class_accuracy_std": 0.06842974503178778
+    },
+    {
+      "accuracy_mean": 0.8638888888888889,
+      "accuracy_std": 0.018839805508681303,
+      "dataset": "syn_bin_imbalanced",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.6547948764003934,
+      "macro_f1_std": 0.040176027812740794,
+      "mean_per_class_accuracy_mean": 0.6619868341061329,
+      "mean_per_class_accuracy_std": 0.061851403197326224
+    },
+    {
+      "accuracy_mean": 0.9029761904761904,
+      "accuracy_std": 0.011649039161179122,
+      "dataset": "syn_bin_imbalanced_complete_overlap",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.4744875927893482,
+      "macro_f1_std": 0.0032276880495876905,
+      "mean_per_class_accuracy_mean": 0.5,
+      "mean_per_class_accuracy_std": 0.0
+    },
+    {
+      "accuracy_mean": 0.5910714285714285,
+      "accuracy_std": 0.09504258205471966,
+      "dataset": "syn_bin_imbalanced_complete_overlap",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.44175441508749586,
+      "macro_f1_std": 0.04103151628344405,
+      "mean_per_class_accuracy_mean": 0.5104090707202033,
+      "mean_per_class_accuracy_std": 0.04079676608388677
+    },
+    {
+      "accuracy_mean": 0.7095238095238094,
+      "accuracy_std": 0.12159186033146387,
+      "dataset": "syn_bin_imbalanced_complete_overlap",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.49310376425646824,
+      "macro_f1_std": 0.0420862553713948,
+      "mean_per_class_accuracy_mean": 0.5361389459285302,
+      "mean_per_class_accuracy_std": 0.033273735225161076
+    },
+    {
+      "accuracy_mean": 0.8375,
+      "accuracy_std": 0.007314408171097895,
+      "dataset": "syn_bin_imbalanced_high_overlap",
+      "fitness_method": "accuracy",
+      "macro_f1_mean": 0.45577369657435685,
+      "macro_f1_std": 0.0021645778602604362,
+      "mean_per_class_accuracy_mean": 0.5,
+      "mean_per_class_accuracy_std": 0.0
+    },
+    {
+      "accuracy_mean": 0.5238095238095238,
+      "accuracy_std": 0.10890092024789783,
+      "dataset": "syn_bin_imbalanced_high_overlap",
+      "fitness_method": "f1_score",
+      "macro_f1_mean": 0.44709220955005524,
+      "macro_f1_std": 0.06005687141783335,
+      "mean_per_class_accuracy_mean": 0.5202771091215617,
+      "mean_per_class_accuracy_std": 0.03459843154851096
+    },
+    {
+      "accuracy_mean": 0.6375,
+      "accuracy_std": 0.11984110559223476,
+      "dataset": "syn_bin_imbalanced_high_overlap",
+      "fitness_method": "pearson_r2",
+      "macro_f1_mean": 0.48812603149607936,
+      "macro_f1_std": 0.05149047869014918,
+      "mean_per_class_accuracy_mean": 0.5146231354891706,
+      "mean_per_class_accuracy_std": 0.04630639710221449
+    }
+  ],
+  "overall": {
+    "accuracy": {
+      "accuracy_mean": 0.707765393719341,
+      "macro_f1_mean": 0.5064315533901222,
+      "mean_per_class_accuracy_mean": 0.5368011740846993
+    },
+    "f1_score": {
+      "accuracy_mean": 0.70326405624103,
+      "macro_f1_mean": 0.5535654939470803,
+      "mean_per_class_accuracy_mean": 0.580411265769482
+    },
+    "pearson_r2": {
+      "accuracy_mean": 0.6928086241244136,
+      "macro_f1_mean": 0.5778895524703644,
+      "mean_per_class_accuracy_mean": 0.6013084123350008
+    }
+  },
+  "winner_counts_by_dataset": {
+    "accuracy": {
+      "accuracy": 3,
+      "f1_score": 6,
+      "pearson_r2": 4
+    },
+    "macro_f1": {
+      "accuracy": 2,
+      "f1_score": 4,
+      "pearson_r2": 7
+    },
+    "mean_per_class_accuracy": {
+      "accuracy": 1,
+      "f1_score": 5,
+      "pearson_r2": 7
+    }
+  }
+}

@@ -120,3 +120,8 @@ Set `fitness_method` to choose the optimization target used by evolutionary scor
 ## Citation
 
 Haut, Nathan. Active Learning in Genetic Programming. Michigan State University, 2023.
+
+## Experiment reports
+
+- Fitness-method comparison report (real + synthetic, including imbalanced overlap cases and box plots):  
+  `reports/fitness_method_comparison/REPORT.md`
