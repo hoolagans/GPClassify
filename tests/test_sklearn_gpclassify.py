@@ -73,6 +73,7 @@ class TestGPClassifier(unittest.TestCase):
         self.assertEqual(params["generations"], 20)
         self.assertEqual(params["selection_method"], "pareto_tournament")
         self.assertEqual(params["fitness_method"], "f1_score")
+        self.assertTrue(params["enable_trig_functions"])
         self.assertFalse(params["show_training_curve"])
 
         returned = clf.set_params(
@@ -80,6 +81,7 @@ class TestGPClassifier(unittest.TestCase):
             generations=30,
             selection_method="pareto_tournament",
             fitness_method="pearson_r2",
+            enable_trig_functions=False,
             show_training_curve=True,
         )
         self.assertIs(returned, clf)
@@ -87,7 +89,26 @@ class TestGPClassifier(unittest.TestCase):
         self.assertEqual(clf.generations, 30)
         self.assertEqual(clf.selection_method, "pareto_tournament")
         self.assertEqual(clf.fitness_method, "pearson_r2")
+        self.assertFalse(clf.enable_trig_functions)
         self.assertTrue(clf.show_training_curve)
+
+    def test_enable_trig_functions_controls_unary_operations(self):
+        default_clf = GPClassifier()
+        self.assertIn("sin", default_clf._math_unary_ops())
+        self.assertIn("cos", default_clf._math_unary_ops())
+        self.assertIn("tanh", default_clf._math_unary_ops())
+
+        no_trig_clf = GPClassifier(enable_trig_functions=False)
+        self.assertNotIn("sin", no_trig_clf._math_unary_ops())
+        self.assertNotIn("cos", no_trig_clf._math_unary_ops())
+        self.assertNotIn("tanh", no_trig_clf._math_unary_ops())
+        self.assertIn("abs", no_trig_clf._math_unary_ops())
+        self.assertIn("log1p", no_trig_clf._math_unary_ops())
+
+    def test_eval_value_rejects_disabled_trig_operations(self):
+        clf = GPClassifier(enable_trig_functions=False)
+        with self.assertRaisesRegex(ValueError, "trigonometric functions are disabled"):
+            clf._eval_value(("math1", "sin", ("const", 1.0)), [0.0])
 
     def test_view_model_interpretable_format(self):
         X = [[4.0, 1.0], [1.0, 4.0], [5.0, 2.0], [2.0, 5.0], [3.0, 1.0], [1.0, 3.0]]

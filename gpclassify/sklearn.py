@@ -40,6 +40,9 @@ _MATH_UNARY_OPS = {
     "abs": lambda a: abs(a),
     "sqrt": lambda a: math.sqrt(abs(a)),
     "log1p": lambda a: math.log1p(abs(a)),
+}
+
+_TRIG_UNARY_OPS = {
     "sin": lambda a: math.sin(a),
     "cos": lambda a: math.cos(a),
     "tanh": lambda a: math.tanh(a),
@@ -103,6 +106,7 @@ class GPClassifier:
         tournament_size: int = 5,
         selection_method: str = "pareto_tournament",
         fitness_method: str = "f1_score",
+        enable_trig_functions: bool = True,
         random_state: int | None = None,
         initial_population: list | None = None,
         show_training_curve: bool = False,
@@ -116,6 +120,7 @@ class GPClassifier:
         self.tournament_size = tournament_size
         self.selection_method = selection_method
         self.fitness_method = fitness_method
+        self.enable_trig_functions = enable_trig_functions
         self.random_state = random_state
         self.initial_population = [] if initial_population is None else initial_population
         self.show_training_curve = show_training_curve
@@ -132,6 +137,7 @@ class GPClassifier:
             "tournament_size": self.tournament_size,
             "selection_method": self.selection_method,
             "fitness_method": self.fitness_method,
+            "enable_trig_functions": self.enable_trig_functions,
             "random_state": self.random_state,
             "initial_population": copy.deepcopy(self.initial_population) if deep else self.initial_population,
             "show_training_curve": self.show_training_curve,
@@ -310,6 +316,8 @@ class GPClassifier:
         return _NODE_OPS
 
     def _math_unary_ops(self):
+        if self.enable_trig_functions:
+            return {**_MATH_UNARY_OPS, **_TRIG_UNARY_OPS}
         return _MATH_UNARY_OPS
 
     def _math_binary_ops(self):
@@ -408,7 +416,17 @@ class GPClassifier:
         if kind == "math1":
             _, op, child = value_node
             inner = self._eval_value(child, data)
-            return self._sanitize_value(_MATH_UNARY_OPS[op](inner))
+            unary_ops = self._math_unary_ops()
+            if op not in unary_ops:
+                if op in _TRIG_UNARY_OPS and not self.enable_trig_functions:
+                    message = (
+                        f"Unary operator '{op}' is unavailable because trigonometric functions are disabled "
+                        "in the current configuration."
+                    )
+                else:
+                    message = f"Unsupported unary operator '{op}' for current GPClassifier configuration."
+                raise ValueError(message)
+            return self._sanitize_value(unary_ops[op](inner))
         _, op, left, right = value_node
         a = self._eval_value(left, data)
         b = self._eval_value(right, data)

@@ -94,6 +94,7 @@ This allows regression-like value expressions at the bottom of boolean trees.
 - `tournament_size`: tournament selection size
 - `selection_method`: parent selection strategy (`"tournament"` or `"pareto_tournament"`)
 - `fitness_method`: fitness objective (`"accuracy"`, `"f1_score"`, or `"pearson_r2"`)
+- `enable_trig_functions`: include trig unary operators (`sin`, `cos`, `tanh`) in tree value expressions
 - `random_state`: reproducibility seed
 - `show_training_curve`: print generation-by-generation best fitness
 
